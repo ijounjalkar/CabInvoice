@@ -28,5 +28,20 @@ public class InvoiceGenerator {
 		System.out.println("Total Fare: "+totalFare);
 		return totalFare;
 	}
+	/**
+	 * UC3_Calaculate total fare for multiple rides and generate invoice summary
+	 * @param rides
+	 * @return
+	 */
+	public InvoiceSummary calculateFare(Ride[] rides) {
+		double totalFare = 0;
+		for (Ride ride : rides) {
+			totalFare += this.calculateFare(ride.dist, ride.time);
+		}
+		System.out.println("Total Fare: "+totalFare);
+		InvoiceSummary summary  = new InvoiceSummary(rides.length, totalFare);
+		return summary;
+	}
+
 
 }
