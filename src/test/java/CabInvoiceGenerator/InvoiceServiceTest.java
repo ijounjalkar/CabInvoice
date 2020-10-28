@@ -41,6 +41,7 @@ public class InvoiceServiceTest {
 		double fare = test.calculateFare(rides);
 		assertEquals(94, fare, 0.0);
 	}
+	
 	/**
 	 * UC3_CalculateFareForMultipleRides and return summary
 	 */
@@ -55,6 +56,22 @@ public class InvoiceServiceTest {
 		InvoiceSummary summary = test.calculateFare(rides);
 		InvoiceSummary expected = new InvoiceSummary(4, 94.0);
 		assertEquals(expected, summary);
+	}
+	
+	/**
+	 * UC4_Invoice Service
+	 */
+	@Test
+	public void givenUserIDAndRides_shouldReturn_InvoiceSummary() {
+		String userId = "abc@xyz";
+		Ride[] rides = { new Ride(3.0, 5),
+				new Ride(0.1, 2)
+		};
+		InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+		invoiceGenerator.addRides(userId, rides);
+		InvoiceSummary summary = invoiceGenerator.getInvoiceSummary(userId);
+		InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 40.0);
+		assertEquals(expectedInvoiceSummary, summary);
 	}
 
 }
