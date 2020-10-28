@@ -15,8 +15,11 @@ public class InvoiceGenerator {
 		return Math.max(totalfare, MINIMUM_FARE);
 	}
 	
+	private RideRepository rideRepository;
+
 	/**
-	 * Modified method to get InvoiceSummary for multiple rides
+	 * Modified method to get InvoiceSummary for multiple rides 
+	 * according to the ride category
 	 * 
 	 * @param multipleRides
 	 * @return
@@ -24,18 +27,18 @@ public class InvoiceGenerator {
 	public InvoiceSummary calculateFare(Ride[] rides) {
 		double totalFare = 0;
 		for (Ride ride : rides) {
-			totalFare += this.calculateFare(ride.distance, ride.time);
+			totalFare += ride.cabRide.calcCostOfCabRide(ride);
 		}
 		InvoiceSummary invoiceSummary = new InvoiceSummary(rides.length, totalFare);
 		return invoiceSummary;
 	}
 
-	public void addRides(String userId, Ride[] rides) {
-		rideRepository.addRides(userId, rides);
-	}
-	
 	public InvoiceSummary getInvoiceSummary(String userId) {
 		return this.calculateFare(rideRepository.getRides(userId));
+	}
+
+	public void setRideRepository(RideRepository rideRepository) {
+		this.rideRepository = rideRepository;
 	}
 
 

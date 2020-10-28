@@ -1,13 +1,15 @@
 package CabInvoiceGenerator;
 
 public class Ride {
-	double dist;
-	int time;
-
-	public Ride(double dist, int time) {
-		this.dist = dist;
-		this.time = time;
-	}
+	
+		public double distance;
+		public int time;
+		public CabRide cabRide;
+		public Ride(CabRide cabRide, double distance, int time) {
+			this.distance = distance;
+			this.time = time;
+			this.cabRide = cabRide;
+		}
 	
 
 }
